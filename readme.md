@@ -1,5 +1,7 @@
 # The Gilded Rose Code Kata
 
+[![Build](https://github.com/AndyWendt/gilded_rose_kata_php/actions/workflows/php.yml/badge.svg)](https://github.com/AndyWendt/gilded_rose_kata_php/actions/workflows/php.yml)
+
 This is a refactoring kata, so you will be starting with a legacy
 code base.  To work this kata, clone this repo and checkout `master` before
 pulling off a new branch to begin your work. Once you have your branch ready to
