@@ -10,6 +10,12 @@ describe_backstage_pass_item();
 function describe_update_single_normal_item()  {
     $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('NORMAL ITEM', $initialSellIn, $initialQuality);
 
+    test('normal item', function () use ($createItem) {
+        $item = $createItem();
+        update_quality([$item]);
+        $this->assertSame(4, $item->sellIn);
+    });
+
     test('normal item - before sell date', function () use ($createItem) {
         $item = $createItem();
         update_quality([$item]);
@@ -37,6 +43,12 @@ function describe_update_single_normal_item()  {
 
 function describe_single_aged_brie_item() {
     $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('Aged Brie', $initialSellIn, $initialQuality);
+
+    test('aged brie', function () use ($createItem) {
+        $item = $createItem();
+        update_quality([$item]);
+        $this->assertSame(4, $item->sellIn);
+    });
 
     test('aged brie - before sell date', function () use ($createItem) {
         $item = $createItem();
@@ -72,6 +84,12 @@ function describe_single_aged_brie_item() {
 function describe_sulphuras_item() {
     $createItem = fn($initialSellIn = 5, $initialQuality = 80) => new Item("Sulfuras, Hand of Ragnaros", $initialSellIn, $initialQuality);
 
+    test('sulphuras', function () use ($createItem) {
+        $item = $createItem();
+        update_quality([$item]);
+        $this->assertSame(5, $item->sellIn);
+    });
+
     test('sulphuras - before sell date', function () use ($createItem) {
         $item = $createItem();
         update_quality([$item]);
@@ -93,6 +111,12 @@ function describe_sulphuras_item() {
 
 function describe_backstage_pass_item() {
     $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('Backstage passes to a TAFKAL80ETC concert', $initialSellIn, $initialQuality);
+
+    test('backstage', function () use ($createItem) {
+        $item = $createItem();
+        update_quality([$item]);
+        $this->assertSame(4, $item->sellIn);
+    });
 
     test('backstage - long before sell date', function () use ($createItem) {
         $item = $createItem(11);
