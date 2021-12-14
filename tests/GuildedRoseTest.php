@@ -8,6 +8,22 @@ describe_sulphuras_item();
 describe_backstage_pass_item();
 describe_conjured_item();
 
+test("with several objets", function () {
+    $createItem = fn($name, $initialSellIn = 5, $initialQuality = 10) => new Item($name, $initialSellIn, $initialQuality);
+    $items = [
+        $createItem('NORMAL ITEM', 5, 10),
+        $createItem('Aged Brie', 3, 10),
+    ];
+
+    update_quality($items);
+
+    $this->assertSame(9, $items[0]->quality);
+    $this->assertSame(4, $items[0]->sellIn);
+
+    $this->assertSame(11, $items[1]->quality);
+    $this->assertSame(2, $items[1]->sellIn);
+});
+
 function describe_normal_item()  {
     $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('NORMAL ITEM', $initialSellIn, $initialQuality);
 
