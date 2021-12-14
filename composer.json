@@ -1,4 +1,6 @@
 {
+    "name": "andywendt/gilded_rose_kata_php",
+    "description": "The refactoring kata in PHP",
     "autoload": {
         "psr-4": {
             "GildedRose\\": "src/"
@@ -8,5 +10,8 @@
     "require-dev": {
         "pestphp/pest": "^1.21"
     },
-    "test": "vendor/bin/pest"
+    "license": "MIT",
+    "scripts": {
+        "test": "vendor/bin/pest"
+    }
 }
