@@ -2,12 +2,13 @@
 
 require_once __DIR__ . '/../src/gilded_rose.php';
 
-describe_update_single_normal_item();
-describe_single_aged_brie_item();
+describe_normal_item();
+describe_aged_brie_item();
 describe_sulphuras_item();
 describe_backstage_pass_item();
+describe_conjured_item();
 
-function describe_update_single_normal_item()  {
+function describe_normal_item()  {
     $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('NORMAL ITEM', $initialSellIn, $initialQuality);
 
     test('normal item', function () use ($createItem) {
@@ -41,7 +42,7 @@ function describe_update_single_normal_item()  {
     });
 }
 
-function describe_single_aged_brie_item() {
+function describe_aged_brie_item() {
     $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('Aged Brie', $initialSellIn, $initialQuality);
 
     test('aged brie', function () use ($createItem) {
@@ -177,4 +178,38 @@ function describe_backstage_pass_item() {
         update_quality([$item]);
         $this->assertSame(0, $item->quality);
     });
+}
+
+function describe_conjured_item() {
+    $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('Conjured Mana Cake', $initialSellIn, $initialQuality);
+
+    test('conjured', function () use ($createItem) {
+        $item = $createItem();
+        update_quality([$item]);
+        $this->assertSame(4, $item->sellIn);
+    });
+
+    test('conjured - before the sell date', function () use ($createItem) {
+        $item = $createItem(5);
+        update_quality([$item]);
+        $this->assertSame(8, $item->quality);
+    })->skip();
+
+    test('conjured - at zero quality', function () use ($createItem) {
+        $item = $createItem(5, 0);
+        update_quality([$item]);
+        $this->assertSame(8, $item->quality);
+    })->skip();
+
+    test('conjured - after sell date', function () use ($createItem) {
+        $item = $createItem(-10);
+        update_quality([$item]);
+        $this->assertSame(6, $item->quality);
+    })->skip();
+
+    test('conjured - after sell date - at zero quality', function () use ($createItem) {
+        $item = $createItem(-10, 0);
+        update_quality([$item]);
+        $this->assertSame(0, $item->quality);
+    })->skip();
 }
