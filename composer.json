@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "psr-4": {
+            "GildedRose": "src/"
+        },
+        "files": ["src/gilded_rose.php"]
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.21"
+    }
+}
