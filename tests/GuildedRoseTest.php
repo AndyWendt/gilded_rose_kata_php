@@ -129,4 +129,28 @@ function describe_backstage_pass_item() {
         update_quality([$item]);
         $this->assertSame(50, $item->quality);
     });
+
+    test('backstage - very close to sell date (lower bound)', function () use ($createItem) {
+        $item = $createItem(1);
+        update_quality([$item]);
+        $this->assertSame(13, $item->quality);
+    });
+
+    test('backstage - very close to sell date (lower bound) - at max quality', function () use ($createItem) {
+        $item = $createItem(1, 50);
+        update_quality([$item]);
+        $this->assertSame(50, $item->quality);
+    });
+
+    test('backstage - very close to sell date (lower bound) - on sell date', function () use ($createItem) {
+        $item = $createItem(0);
+        update_quality([$item]);
+        $this->assertSame(0, $item->quality);
+    });
+
+    test('backstage - very close to sell date (lower bound) - after sell date', function () use ($createItem) {
+        $item = $createItem(-10);
+        update_quality([$item]);
+        $this->assertSame(0, $item->quality);
+    });
 }
