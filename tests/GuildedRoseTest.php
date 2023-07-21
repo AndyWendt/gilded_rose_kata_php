@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../src/gilded_rose.php';
 
-describe_normal_item();
 describe_aged_brie_item();
 describe_sulphuras_item();
 describe_backstage_pass_item();
@@ -27,28 +26,28 @@ test("with several objets", function () {
     $this->assertSame(2, $items[1]->sellIn);
 });
 
-function describe_normal_item()  {
+describe('normal item', function () {
     $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('NORMAL ITEM', $initialSellIn, $initialQuality);
 
-    test('normal item', function () use ($createItem) {
+    test('base', function () use ($createItem) {
         $item = $createItem();
         update_quality([$item]);
         $this->assertSame(4, $item->sellIn);
     });
 
-    test('normal item - before sell date', function () use ($createItem) {
+    test('before sell date', function () use ($createItem) {
         $item = $createItem();
         update_quality([$item]);
         $this->assertSame(4, $item->sellIn);
     });
 
-    test('normal item - on sell date', function () use ($createItem) {
+    test('on sell date', function () use ($createItem) {
         $item = $createItem(0);
         update_quality([$item]);
         $this->assertSame(8, $item->quality);
     });
 
-    test('normal item - after sell date', function () use ($createItem) {
+    test('after sell date', function () use ($createItem) {
         $item = $createItem(-10);
         update_quality([$item]);
         $this->assertSame(8, $item->quality);
@@ -59,7 +58,7 @@ function describe_normal_item()  {
         update_quality([$item]);
         $this->assertSame(0, $item->quality);
     });
-}
+});
 
 function describe_aged_brie_item() {
     $createItem = fn($initialSellIn = 5, $initialQuality = 10) => new Item('Aged Brie', $initialSellIn, $initialQuality);

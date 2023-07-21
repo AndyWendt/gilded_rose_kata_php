@@ -8,10 +8,15 @@
         "files": ["src/gilded_rose.php"]
     },
     "require-dev": {
-        "pestphp/pest": "^1.21"
+        "pestphp/pest": "^v2.9.3"
     },
     "license": "MIT",
     "scripts": {
         "test": "vendor/bin/pest"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
