@@ -8,6 +8,9 @@ describe_sulphuras_item();
 describe_backstage_pass_item();
 describe_conjured_item();
 
+const INITIAL_QUALITY = 10;
+const INITIAL_SELL_IN = 5;
+
 test("with several objets", function () {
     $createItem = fn($name, $initialSellIn = 5, $initialQuality = 10) => new Item($name, $initialSellIn, $initialQuality);
     $items = [
@@ -77,6 +80,12 @@ function describe_aged_brie_item() {
         $item = $createItem(5, 50);
         update_quality([$item]);
         $this->assertSame(50, $item->quality);
+    });
+
+    test('aged brie - on sell date', function () use ($createItem) {
+        $item = $createItem(0, INITIAL_QUALITY);
+        update_quality([$item]);
+        $this->assertSame(INITIAL_QUALITY + 2, $item->quality);
     });
 
     test('aged brie - on sell date - near max quality', function () use ($createItem) {
